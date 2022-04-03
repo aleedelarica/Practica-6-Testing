@@ -15,3 +15,4 @@ public record DNI(String dniValue) {
             && dniValue.charAt(8) == DIGITO_CONTROL.charAt(Integer.parseInt(dniValue.substring(0, 8)) % 23); // (3)
   }
 }
+

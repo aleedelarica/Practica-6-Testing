@@ -29,11 +29,11 @@ public class ProcessControllerTests {
     private TestRestTemplate restTemplate;
 
     @Test
-    public void given_app_when_login_using_right_credencials_then_ok() {
+    public void ProcessDataTest_ok() {
 
         //Given
         String address = "http://localhost:"+port+"/api/v1/process-step1";
-        ProcessController.DataRequest dataPrueba = new ProcessController.DataRequest("Juan Juanes", "61701688W", "987654321");
+        ProcessController.DataRequest dataPrueba = new ProcessController.DataRequest("Alberto Gambino", "85g789909W", "965378921");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<ProcessController.DataRequest> request = new HttpEntity<>(dataPrueba, headers);
@@ -41,7 +41,7 @@ public class ProcessControllerTests {
         //when
         ResponseEntity<DataResponse> result = this.restTemplate.postForEntity(address, request, DataResponse.class);
 
-        String expectedResult = "OK";
+        String expectedResult = "OK"; //Si todo va bien sale ok
         DataResponse expectedResponse = new DataResponse(expectedResult);
 
         then(result.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -49,11 +49,11 @@ public class ProcessControllerTests {
         then(result.getBody()).isEqualTo(expectedResponse);
     }
     @Test
-    public void given_app_when_filling_using_right_credentials_then_ko() {
+    public void ProcessDataTest_ko() {
 
         //Given
         String address = "http://localhost:"+port+"/api/v1/process-step1";
-        ProcessController.DataRequest dataPrueba = new ProcessController.DataRequest("Juan Juanes", "61aB1688W", "987654321");
+        ProcessController.DataRequest dataPrueba = new ProcessController.DataRequest("Alberto Gambino", "85g789909W", "965378921");
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<ProcessController.DataRequest> request = new HttpEntity<>(dataPrueba, headers);
@@ -70,15 +70,15 @@ public class ProcessControllerTests {
     }
 
     @Test
-    public void given_app_when_filling_using_right_credentials_then_ok_legacy() {
+    public void ProcessDataTest_ok_legacy() {
 
         //Given
         String address = "http://localhost:" + port + "/api/v1/process-step1-legacy";
 
         MultiValueMap<String, String> datos = new LinkedMultiValueMap<>();
-        datos.add("fullName", "Pablo");
-        datos.add("dni", "60593409R");
-        datos.add("telefono", "622359863");
+        datos.add("fullName", "Ale");
+        datos.add("dni", "05962532N");
+        datos.add("telefono", "626278820");
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String,String>> request = new HttpEntity<>(datos, headers);
@@ -97,15 +97,15 @@ public class ProcessControllerTests {
     }
 
     @Test
-    public void given_app_when_filling_using_right_credentials_then_ko_legacy() {
+    public void ProcessDataTest_ko_legacy() {
 
         //Given
         String address = "http://localhost:" + port + "/api/v1/process-step1-legacy";
 
         MultiValueMap<String, String> datos = new LinkedMultiValueMap<>();
-        datos.add("fullName", "Pablo");
-        datos.add("dni", "605JK409R");
-        datos.add("telefono", "622359863");
+        datos.add("fullName", "Ale");
+        datos.add("dni", "05962532N");
+        datos.add("telefono", "626278820");
 
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<MultiValueMap<String,String>> request = new HttpEntity<>(datos, headers);
